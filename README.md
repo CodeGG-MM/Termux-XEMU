@@ -4,8 +4,14 @@ Trying to natively build Xemu Original Xbox emulator and run it Termux.
 Without Root, Proot, Chroot, Box64, Wine.
 
 # Install
+
+Install Termux and copy-paste enter -
+
+[https://f-droid.org/repo/com.termux_1020.apk](https://f-droid.org/repo/com.termux_1020.apk)
+
     apt update -y && \
     yes | apt upgrade -y && \
+    yes | termux-setup-storage >/dev/null; \
     apt install -y --no-install-recommends wget openbox && \
     wget -O xemu-arm64.deb "https://github.com/George-Seven/Termux-XEMU/releases/latest/download/xemu-arm64.deb" && \
     apt install ./xemu-arm64.deb
