@@ -34,7 +34,7 @@ touch .xemu.backup
 
 cp -rf xemu.backup xemu
 
-(cd xemu; git reset --hard 98a03e944c5d4c9f3f4973a51bf3b707819d1a89)
+#(cd xemu; git reset --hard 98a03e944c5d4c9f3f4973a51bf3b707819d1a89)
 
 # Patch 1
 patch -p1 -d xemu <<< '
