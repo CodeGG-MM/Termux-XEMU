@@ -28,7 +28,7 @@ touch .termux-packages.backup
 
 cp -rf termux-packages.backup termux-packages
 
-[ -f .xemu.backup ] || { git clone --recursive https://github.com/xemu-project/xemu xemu.backup || { rm -rf xemu.backup && exit 1; }; }
+[ -f .xemu.backup ] || { git clone --recursive https://github.com/xemu-project/xemu -b feat/vulkan xemu.backup || { rm -rf xemu.backup && exit 1; }; }
 
 touch .xemu.backup
 
