@@ -1,5 +1,5 @@
 # Termux-XEMU
-Trying to natively build Xemu Original Xbox emulator and run it Termux.
+Trying to natively build Xemu Original Xbox emulator and run it in Termux.
 
 Without Root, Proot, Chroot, Box64, Wine.
 
