@@ -32,6 +32,8 @@ cp -rf termux-packages.backup termux-packages
 
 (
 cd xemu.backup
+git config user.email "github-actions@noreply.github.com"
+git config user.name "github-actions"
 git remote add rebind https://github.com/antangelo/xemu
 git fetch rebind
 git cherry-pick 7eb8a0a238d50c4ba54757596475ab6fb3d2b315
