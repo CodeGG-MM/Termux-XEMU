@@ -17,6 +17,12 @@ jobs:
           cp -rf Termux-XEMU/build-xemu/termux-packages.backup Termux-XEMU/build-xemu/termux-packages
           touch Termux-XEMU/build-xemu/.termux-packages.backup
           git clone --recursive https://github.com/xemu-project/xemu Termux-XEMU/build-xemu/xemu.backup
+          (
+          cd xemu.backup
+          git remote add rebind https://github.com/antangelo/xemu
+          git fetch rebind
+          git cherry-pick 7eb8a0a238d50c4ba54757596475ab6fb3d2b315
+          )
           cp -rf Termux-XEMU/build-xemu/xemu.backup Termux-XEMU/build-xemu/xemu
           touch Termux-XEMU/build-xemu/.xemu.backup
           docker run --name=build-xemu -t --privileged -v $(pwd)/Termux-XEMU:/data/data/com.termux/files/home/Termux-XEMU.backup termux/termux-docker:aarch64 bash -c 'export TERM="xterm-256color" && cp -rf Termux-XEMU.backup Termux-XEMU && cd Termux-XEMU && ./build-xemu.sh'
