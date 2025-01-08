@@ -30,14 +30,14 @@ cp -rf termux-packages.backup termux-packages
 
 [ -f .xemu.backup ] || { git clone --recursive https://github.com/xemu-project/xemu xemu.backup || { rm -rf xemu.backup && exit 1; }; }
 
-(
-cd xemu.backup
-git config user.email "github-actions@noreply.github.com"
-git config user.name "github-actions"
-git remote add rebind https://github.com/antangelo/xemu || true
-git fetch rebind
-git cherry-pick 7eb8a0a238d50c4ba54757596475ab6fb3d2b315
-)
+#(
+#cd xemu.backup
+#git config user.email "github-actions@noreply.github.com"
+#git config user.name "github-actions"
+#git remote add rebind https://github.com/antangelo/xemu || true
+#git fetch rebind
+#git cherry-pick 7eb8a0a238d50c4ba54757596475ab6fb3d2b315
+#)
 
 touch .xemu.backup
 
