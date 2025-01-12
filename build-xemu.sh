@@ -32,8 +32,6 @@ set +u
 set -u
 LD_PRELOAD="$LD_PRELOAD" ./build-package.sh -f -s xemu
 
-cd "$CURRENT_DIR"
-
 rm -rf "$CURRENT_DIR/xemu.deb"
 
 mv output/*.deb "$CURRENT_DIR/xemu.deb"
