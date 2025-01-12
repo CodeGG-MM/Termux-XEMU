@@ -2,7 +2,7 @@
 
 set -e
 
-cd "${BASH_SOURCE[0]}"
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
 clear 2>/dev/null || true
 
