@@ -24,6 +24,10 @@ cd termux-packages
 
 ./scripts/setup-termux.sh
 
+ls -rla /data/data/com.termux/files/usr/lib/libtermux-exec.so
+
+exit 1
+
 ./build-package.sh -f -I xemu
 
 cd "$CURRENT_DIR"
