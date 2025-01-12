@@ -24,11 +24,13 @@ cd termux-packages
 
 ./scripts/setup-termux.sh
 
+yes | apt install -y gtk3 libepoxy libglvnd-dev libpcap libpixman libsamplerate libslirp libtasn1 ndk-sysroot sdl2 vulkan-headers xorgproto
+
 set +u
-[ -z "$LD_PRELOAD" ] && _LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so
+[ -z "$LD_PRELOAD" ] && LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so
 
 set -u
-LD_PRELOAD="$_LD_PRELOAD" ./build-package.sh -f -I xemu
+LD_PRELOAD="$LD_PRELOAD" ./build-package.sh -f -s xemu
 
 cd "$CURRENT_DIR"
 
