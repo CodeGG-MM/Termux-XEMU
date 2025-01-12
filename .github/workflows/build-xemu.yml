@@ -34,7 +34,7 @@ jobs:
               docker run --rm --privileged aptman/qus -s -- -p arm aarch64
           fi
 
-          docker run -t --name "xemu-builder-${{ env.PLATFORM }}" --env TERM=xterm-256color --privileged termux/termux-docker:"${{ env.PLATFORM }}" bash -c ' \
+          docker run -t --name "xemu-builder-${{ env.PLATFORM }}" --env TERM=xterm-256color --env LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so --privileged termux/termux-docker:"${{ env.PLATFORM }}" bash -c ' \
               yes | apt update -y && \
               yes | apt install -y git && \
               git clone --depth 1 https://github.com/George-Seven/Termux-XEMU && \
