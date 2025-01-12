@@ -24,11 +24,11 @@ cd termux-packages
 
 ./scripts/setup-termux.sh
 
-if [ -z "$LD_PRELOAD" ]; then
-    LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so ./build-package.sh -f -I xemu
-else
-    ./build-package.sh -f -I xemu
-fi
+set +u
+[ -z "$LD_PRELOAD" ] && _LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so
+
+set -u
+LD_PRELOAD="$_LD_PRELOAD" ./build-package.sh -f -I xemu
 
 cd "$CURRENT_DIR"
 
