@@ -8,7 +8,7 @@ clear 2>/dev/null || true
 
 apt update -y && \
 yes | apt upgrade -y && \
-yes | apt install -y git jq
+yes | apt install -y git jq termux-exec
 
 set -ux
 
