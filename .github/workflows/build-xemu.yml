@@ -50,6 +50,6 @@ jobs:
            repo_token: ${{ secrets.GITHUB_TOKEN }}
            file: "xemu.deb"
            asset_name: "xemu-${{ matrix.ARCH }}.deb"
-           tag: "xemu-test"
+           tag: "xemu"
            release_name: "Xemu Original Xbox emulator for Termux"
            overwrite: true
