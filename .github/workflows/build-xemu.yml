@@ -39,7 +39,7 @@ jobs:
               yes | apt install -y git && \
               git clone --depth 1 https://github.com/George-Seven/Termux-XEMU && \
               cd Termux-XEMU && \
-              LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so ./build-xemu.sh
+              ./build-xemu.sh
           '
 
           docker cp "xemu-builder-${{ env.PLATFORM }}":/data/data/com.termux/files/home/Termux-XEMU/xemu.deb "$(pwd)/xemu.deb"
