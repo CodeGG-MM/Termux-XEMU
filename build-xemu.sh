@@ -24,9 +24,9 @@ cd termux-packages
 
 ./scripts/setup-termux.sh
 
-[ -z "$LD_PRELOAD" ] && LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so
+[ -z "$LD_PRELOAD" ] && _LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so
 
-LD_PRELOAD=$LD_PRELOAD ./build-package.sh -f -I xemu
+LD_PRELOAD="$_LD_PRELOAD" ./build-package.sh -f -I xemu
 
 cd "$CURRENT_DIR"
 
