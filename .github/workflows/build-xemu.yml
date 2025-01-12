@@ -7,27 +7,49 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    strategy:
+      matrix:
+        ARCH: [arm, aarch64, x86, x86_64]
+      fail-fast: false
     steps:
+      - name: Set Build Platform Architecture
+        run: |
+          if [ "${{ matrix.ARCH }}" = "aarch64" ]; then
+            echo "PLATFORM=aarch64" >> $GITHUB_ENV
+          elif [ "${{ matrix.ARCH }}" = "x86_64" ]; then
+            echo "PLATFORM=x86_64" >> $GITHUB_ENV
+          elif [ "${{ matrix.ARCH }}" = "arm" ]; then
+            echo "PLATFORM=arm" >> $GITHUB_ENV
+          elif [ "${{ matrix.ARCH }}" = "x86" ]; then
+            echo "PLATFORM=i686" >> $GITHUB_ENV
+          else
+            echo "Unsupported architecture"
+            exit 1
+          fi
+
       - name: Build Xemu
         run: |
-          docker run --rm --privileged aptman/qus -s -- -p arm aarch64    
-          git clone https://github.com/George-Seven/Termux-XEMU
-          mkdir -p Termux-XEMU/build-xemu
-          git clone https://github.com/termux/termux-packages Termux-XEMU/build-xemu/termux-packages.backup
-          cp -rf Termux-XEMU/build-xemu/termux-packages.backup Termux-XEMU/build-xemu/termux-packages
-          touch Termux-XEMU/build-xemu/.termux-packages.backup
-          git clone --recursive https://github.com/xemu-project/xemu Termux-XEMU/build-xemu/xemu.backup
-          cp -rf Termux-XEMU/build-xemu/xemu.backup Termux-XEMU/build-xemu/xemu
-          touch Termux-XEMU/build-xemu/.xemu.backup
-          docker run --name=build-xemu -t --privileged -v $(pwd)/Termux-XEMU:/data/data/com.termux/files/home/Termux-XEMU.backup termux/termux-docker:aarch64 bash -c 'export TERM="xterm-256color" && cp -rf Termux-XEMU.backup Termux-XEMU && cd Termux-XEMU && ./build-xemu.sh'
-          docker cp build-xemu:/data/data/com.termux/files/home/Termux-XEMU/build-xemu/xemu.deb $(pwd)/Termux-XEMU/build-xemu/xemu.deb
+          # Support for ARM and ARM64
+          if [[ "${{ matrix.ARCH }}" == "aarch64" || "${{ matrix.ARCH }}" == "arm" ]]; then
+              docker run --rm --privileged aptman/qus -s -- -p arm aarch64
+          fi
+
+          docker run -t -name "xemu-builder-${{ env.PLATFORM }}" --env TERM=xterm-256color --privileged termux/termux-docker:"${{ env.PLATFORM }}" bash -c ' \
+              yes | apt update -y && \
+              yes | apt install -y git && \
+              git clone --depth 1 https://github.com/George-Seven/Termux-XEMU && \
+              cd Termux-XEMU && \
+              ./build-xemu.sh
+          '
+
+          docker cp "xemu-builder-${{ env.PLATFORM }}":/data/data/com.termux/files/home/Termux-XEMU/xemu.deb "$(pwd)/xemu.deb"
 
       - name: Upload Release
         uses: svenstaro/upload-release-action@v2
         with:
            repo_token: ${{ secrets.GITHUB_TOKEN }}
-           file: "Termux-XEMU/build-xemu/xemu.deb"
-           asset_name: "xemu-arm64.deb"
-           tag: "xemu"
+           file: "xemu.deb"
+           asset_name: "xemu-${{ matrix.ARCH }}.deb"
+           tag: "xemu-test"
            release_name: "Xemu Original Xbox emulator for Termux"
            overwrite: true
