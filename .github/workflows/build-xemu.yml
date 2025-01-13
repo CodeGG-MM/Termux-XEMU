@@ -9,7 +9,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        ARCH: [aarch64, x86_64]
+        ARCH: [aarch64]
       fail-fast: false
     steps:
       - name: Set Build Platform Architecture
