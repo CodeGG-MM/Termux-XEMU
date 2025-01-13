@@ -38,7 +38,7 @@ cd "$CURRENT_DIR"
 
 rm -rf "$TMP_DIR"
 
-#apt install -y "$CURRENT_DIR/xemu.deb"
+apt reinstall -y "$CURRENT_DIR/xemu.deb"
 
 echo
 echo "Output debian package -"
