@@ -12,6 +12,7 @@ Install Termux and copy-paste enter -
 
     apt update -y && \
     yes | apt upgrade -y && \
+    yes | apt install -y x11-repo && \
     yes | termux-setup-storage >/dev/null; \
     apt install -y --no-install-recommends wget openbox && \
     wget -O xemu.deb "https://github.com/George-Seven/Termux-XEMU/releases/latest/download/xemu-aarch64.deb" && \
