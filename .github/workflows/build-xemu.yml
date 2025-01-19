@@ -16,8 +16,7 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/George-Seven/termux-packages
           cd termux-packages
-          scripts/setup-ubuntu.sh
-          ./build-package.sh -f -I -a "${{ matrix.ARCH }}" xemu
+          ./scripts/run-docker.sh ./build-package.sh -f -I -a "${{ matrix.ARCH }}" xemu
           mv output/*.deb ../xemu.deb
 
       - name: Upload Release
