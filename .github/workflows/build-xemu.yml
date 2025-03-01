@@ -16,9 +16,9 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/George-Seven/termux-packages
           cd termux-packages
+          ./scripts/run-docker.sh bash -c "apt update && apt install python3 -y"
           ./scripts/run-docker.sh ./build-package.sh -f -I -a "${{ matrix.ARCH }}" xemu
           mv output/*.deb ../xemu.deb
-
       - name: Upload Release
         uses: svenstaro/upload-release-action@v2
         with:
